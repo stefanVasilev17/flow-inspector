@@ -49,3 +49,11 @@ Java backend engineers, SREs, platform teams and engineering leads operating ser
 ## Success metric
 
 Median time from production incident selection to the first useful investigation step. Compare with manual search in existing logs/traces; do not use "exact root cause" as a success metric without a labeled evaluation dataset.
+
+
+## Phase 2 implementation (current)
+
+- PostgreSQL 17 append-only observation repository with Flyway migrations, gated behind `postgres` Spring profile.
+- Native OTLP/HTTP trace receiver for protobuf/JSON/gzip, mapping span start/end and status to observations.
+- Docker Compose stack and CI integration testing against PostgreSQL.
+- Missing for production: OTLP idempotency, authentication, retention, quotas, reliable async ingestion and sensitive data redaction.

@@ -6,7 +6,7 @@ import com.flowinspector.dto.ObservationRequest;
 import java.util.List;
 import java.util.Map;
 
-/** Persistence contract. Replace the in-memory implementation without changing services. */
+/** Storage contract shared by in-memory and PostgreSQL implementations. */
 public interface ObservationRepository {
     Observation save(ObservationRequest request);
 

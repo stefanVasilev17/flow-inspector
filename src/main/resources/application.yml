@@ -1,9 +1,18 @@
 spring:
   application:
     name: production-flow-inspector
+  datasource:
+    # Used only with the postgres profile. The default repository is still in-memory.
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/flow_inspector}
+    username: ${DB_USERNAME:flow_inspector}
+    password: ${DB_PASSWORD:local_dev_only}
+    hikari:
+      maximum-pool-size: 8
+  flyway:
+    enabled: false
 server:
   port: 8080
-  address: 127.0.0.1  # Local-only MVP; do not expose without auth and redaction.
+  address: 127.0.0.1 # Do not expose without auth, tenancy, filtering and rate limiting.
 management:
   endpoints:
     web:

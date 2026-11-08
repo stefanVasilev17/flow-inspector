@@ -3,6 +3,7 @@ package com.flowinspector.repository;
 import com.flowinspector.domain.Observation;
 import com.flowinspector.dto.ObservationRequest;
 import com.flowinspector.exception.ObservationLimitExceededException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import java.time.Instant;
@@ -17,6 +18,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * The lock protects inserts, reads and trace eviction. No HTTP or SSE concerns live here.
  */
 @Repository
+@Profile("!postgres")
 public class InMemoryObservationRepository implements ObservationRepository {
     private static final int MAX_TRACES = 200;
     private static final int MAX_OBSERVATIONS_PER_TRACE = 500;
