@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09101d">
+  <title>Production Flow Inspector · Trace Explorer</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="branding">
+        <div class="brand-logo">F<span>·</span></div>
+        <div><div class="brand-name">Flow Inspector</div><div class="brand-subtitle">Execution intelligence</div></div>
+      </div>
+      <div class="top-actions">
+        <span class="environment">LOCAL DEVELOPMENT</span>
+        <span id="live-status" class="live-state">Connecting…</span>
+        <button id="demo-button" class="primary-button">+ Generate demo trace</button>
+      </div>
+    </header>
+    <section class="intro">
+      <div>
+        <div class="eyebrow">PRODUCTION FLOW INSPECTOR / MVP</div>
+        <h1>Find where the flow broke.</h1>
+        <p>Follow every observed operation, inspect state transitions, and highlight the first reported failure.</p>
+      </div>
+      <div class="intro-side"><div class="intro-index">01 / TRACE EXPLORER</div><div class="intro-note">Events → execution graph → evidence</div></div>
+    </section>
+    <div class="workspace">
+      <aside class="panel trace-panel">
+        <div class="panel-heading"><span>EXECUTION TRACES</span><span id="trace-count" class="count">0</span></div>
+        <div class="search-wrap"><input id="search" type="search" placeholder="Filter trace ID or service…" autocomplete="off"></div>
+        <div id="trace-list" class="trace-list"><p class="empty-state">No traces recorded yet.</p></div>
+        <div class="aside-footer"><span class="footer-indicator"></span> Local in-memory storage <span class="muted">· Volatile</span></div>
+      </aside>
+      <main class="main-view">
+        <section class="panel graph-panel">
+          <div class="panel-top"><div><div class="panel-heading">EXECUTION GRAPH</div><h2 id="trace-title">Select a trace</h2></div><div id="trace-summary" class="trace-meta"></div></div>
+          <div id="failure-banner" class="failure-banner hidden"></div>
+          <div class="legend"><span><i class="dot ok"></i> Success</span><span><i class="dot active"></i> Running</span><span><i class="dot fail"></i> Failed</span><span><i class="dot idle"></i> Received / skipped</span></div>
+          <div id="graph-viewport" class="graph-viewport"><div class="graph-placeholder"><div class="placeholder-icon">⌁</div><strong>Nothing to visualize yet</strong><span>Generate a demo trace or send an observation to the API.</span></div></div>
+        </section>
+        <section class="panel timeline-panel"><div class="panel-heading"><span>EVENT TIMELINE</span><span id="observation-count" class="count">0 observations</span></div><div id="timeline" class="timeline"><p class="empty-state">State transitions will appear here.</p></div></section>
+      </main>
+      <aside class="panel details-panel"><div class="panel-heading">INSPECTOR <span class="inspector-label">NODE DETAILS</span></div><div id="details" class="details"><div class="details-empty"><div class="details-empty-icon">↖</div><strong>Select a node</strong><p>Inspect exact states, exceptions and source hints for an operation.</p></div></div></aside>
+    </div>
+    <footer class="footer"><span>FLOW INSPECTOR / v0.1.0</span><span>Evidence first. First observed failure ≠ proven root cause.</span></footer>
+  </div>
+</body>
+</html>

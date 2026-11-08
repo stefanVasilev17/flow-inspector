@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: production-flow-inspector
+server:
+  port: 8080
+  address: 127.0.0.1  # Local-only MVP; do not expose without auth and redaction.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
