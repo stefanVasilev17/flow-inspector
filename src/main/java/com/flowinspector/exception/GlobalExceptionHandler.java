@@ -16,6 +16,21 @@ public class GlobalExceptionHandler {
         return problem;
     }
 
+    @ExceptionHandler(InvalidOtlpPayloadException.class)
+    public ProblemDetail handleInvalidOtlp(InvalidOtlpPayloadException exception) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, exception.getMessage());
+        problem.setTitle("Invalid OTLP trace request");
+        return problem;
+    }
+
+    @ExceptionHandler(OtlpPayloadTooLargeException.class)
+    public ProblemDetail handleOtlpLimit(OtlpPayloadTooLargeException exception) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.PAYLOAD_TOO_LARGE,
+                exception.getMessage());
+        problem.setTitle("OTLP batch limit exceeded");
+        return problem;
+    }
+
     @ExceptionHandler(ObservationLimitExceededException.class)
     public ProblemDetail handleObservationLimit(ObservationLimitExceededException exception) {
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.PAYLOAD_TOO_LARGE,

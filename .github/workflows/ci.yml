@@ -5,6 +5,25 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: flow_inspector
+          POSTGRES_USER: flow_inspector
+          POSTGRES_PASSWORD: ci_only_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U flow_inspector -d flow_inspector"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 15
+    env:
+      RUN_POSTGRES_IT: 'true'
+      DB_URL: jdbc:postgresql://localhost:5432/flow_inspector
+      DB_USERNAME: flow_inspector
+      DB_PASSWORD: ci_only_password
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -12,5 +31,5 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-      - name: Test and package
+      - name: Unit tests and PostgreSQL integration tests
         run: mvn --batch-mode verify
